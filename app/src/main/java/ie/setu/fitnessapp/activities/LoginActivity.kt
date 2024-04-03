@@ -1,18 +1,12 @@
-package ie.setu.fitnessapp
+package ie.setu.fitnessapp.activities
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import timber.log.Timber
-import timber.log.Timber.i
+import ie.setu.fitnessapp.R
 
-class FitnessActivity : AppCompatActivity() {
+class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
-
-
-        Timber.plant(Timber.DebugTree())
-
-        i("Fitness Journal Activity started..")
     }
 }
