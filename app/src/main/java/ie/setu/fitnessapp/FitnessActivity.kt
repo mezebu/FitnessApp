@@ -8,7 +8,7 @@ import timber.log.Timber.i
 class FitnessActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_login)
+        setContentView(R.layout.activity_main)
 
 
         Timber.plant(Timber.DebugTree())
