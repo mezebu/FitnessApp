@@ -24,6 +24,17 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintWidth_percent="0.5" />
 
+    <ImageView
+        android:id="@+id/image_view"
+        android:layout_width="145dp"
+        android:layout_height="115dp"
+        android:layout_marginTop="32dp"
+        android:contentDescription="@string/image_description"
+        android:src="@drawable/login_logo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/txt_welcome" />
+
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/txtLay_user"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -40,7 +51,7 @@
         app:layout_constraintVertical_bias="0.4">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/txtInput_user"
+            android:id="@+id/txtEmail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:maxLength="20" />
@@ -61,7 +72,7 @@
         app:layout_constraintTop_toBottomOf="@+id/txtLay_user">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/txt_pass"
+            android:id="@+id/txtPassword"
             android:inputType="textPassword"
             android:maxLength="15"
             android:layout_width="match_parent"
@@ -69,7 +80,7 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/btn_login"
+        android:id="@+id/btnLogin"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="@string/button_login"
@@ -80,7 +91,7 @@
         app:layout_constraintEnd_toEndOf="@+id/txtLay_pass" />
 
     <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/txt_register_here"
+        android:id="@+id/txtRegister"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/register_here"
@@ -88,8 +99,8 @@
         android:textSize="16sp"
         android:clickable="true"
         android:focusable="true"
-        app:layout_constraintTop_toBottomOf="@id/btn_login"
-        app:layout_constraintStart_toStartOf="@id/btn_login"
-        app:layout_constraintEnd_toEndOf="@id/btn_login" />
+        app:layout_constraintTop_toBottomOf="@id/btnLogin"
+        app:layout_constraintStart_toStartOf="@id/btnLogin"
+        app:layout_constraintEnd_toEndOf="@id/btnLogin" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
