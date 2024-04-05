@@ -5,9 +5,14 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import ie.setu.fitnessapp.R
+import ie.setu.fitnessapp.databinding.ActivityLoginBinding
+import timber.log.Timber
+import timber.log.Timber.i
 
 class LoginActivity : AppCompatActivity() {
 
@@ -17,10 +22,18 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var txtRegister: TextView
     private lateinit var txtLayUser: TextInputLayout
     private lateinit var txtLayPass: TextInputLayout
+    private lateinit var binding: ActivityLoginBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_login)
+        Thread.sleep(3000)
+        installSplashScreen()
+        binding = ActivityLoginBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+        Timber.plant(Timber.DebugTree())
+
+        i("Login Activity started..")
 
         // Initialize views using view binding
         txtEmail = findViewById(R.id.txtEmail)
@@ -37,18 +50,21 @@ class LoginActivity : AppCompatActivity() {
         }
 
         // Set up click listener for the login button
-        btnLogin.setOnClickListener {
+        binding.btnLogin.setOnClickListener {
+            i("Login Button Pressed")
             val email = txtEmail.text.toString().trim()
             val password = txtPassword.text.toString().trim()
 
             if (email.isEmpty()) {
-                txtLayUser.error = getString(R.string.error_empty_email)
-                return@setOnClickListener
+                Snackbar
+                    .make(it,"Please Enter an Email", Snackbar.LENGTH_LONG)
+                    .show()
             }
 
             if (password.isEmpty()) {
-                txtLayPass.error = getString(R.string.error_empty_password)
-                return@setOnClickListener
+                Snackbar
+                    .make(it,"Please Enter Your Password", Snackbar.LENGTH_LONG)
+                    .show()
             }
 
             // Perform login operation here
