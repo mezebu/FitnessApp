@@ -83,27 +83,31 @@
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_register"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_width="369dp"
+        android:layout_height="65dp"
+        android:layout_marginTop="36dp"
         android:text="@string/button_register"
-        app:layout_constraintWidth_percent="0.5"
+        app:layout_constraintEnd_toEndOf="@+id/txtLay_pass"
         app:layout_constraintHeight_percent="0.06"
-        app:layout_constraintTop_toBottomOf="@+id/txtLay_pass"
+        app:layout_constraintHorizontal_bias="0.493"
         app:layout_constraintStart_toStartOf="@+id/txtLay_pass"
-        app:layout_constraintEnd_toEndOf="@+id/txtLay_pass" />
+        app:layout_constraintTop_toBottomOf="@+id/txtLay_pass"
+        app:layout_constraintWidth_percent="0.5" />
 
     <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/txt_register"
+        android:id="@+id/txtLogin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="56dp"
+        android:clickable="true"
+        android:focusable="true"
         android:text="@string/login_here"
         android:textColor="@color/colorAccent"
         android:textSize="16sp"
-        android:clickable="true"
-        android:focusable="true"
-        app:layout_constraintTop_toBottomOf="@id/btn_register"
+        app:layout_constraintEnd_toEndOf="@id/btn_register"
+        app:layout_constraintHorizontal_bias="0.504"
         app:layout_constraintStart_toStartOf="@id/btn_register"
-        app:layout_constraintEnd_toEndOf="@id/btn_register" />
+        app:layout_constraintTop_toBottomOf="@id/btn_register" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
