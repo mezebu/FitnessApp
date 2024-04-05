@@ -53,7 +53,7 @@
         app:layout_constraintVertical_bias="0.4">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/txtInput_user"
+            android:id="@+id/txtEmail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:maxLength="20" />
@@ -74,7 +74,7 @@
         app:layout_constraintTop_toBottomOf="@+id/txtLay_user">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/txt_pass"
+            android:id="@+id/txtPassword"
             android:inputType="textPassword"
             android:maxLength="15"
             android:layout_width="match_parent"
@@ -82,7 +82,7 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/btn_register"
+        android:id="@+id/btnRegister"
         android:layout_width="369dp"
         android:layout_height="65dp"
         android:layout_marginTop="36dp"
@@ -104,10 +104,10 @@
         android:text="@string/login_here"
         android:textColor="@color/colorAccent"
         android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="@id/btn_register"
+        app:layout_constraintEnd_toEndOf="@id/btnRegister"
         app:layout_constraintHorizontal_bias="0.504"
-        app:layout_constraintStart_toStartOf="@id/btn_register"
-        app:layout_constraintTop_toBottomOf="@id/btn_register" />
+        app:layout_constraintStart_toStartOf="@id/btnRegister"
+        app:layout_constraintTop_toBottomOf="@id/btnRegister" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
