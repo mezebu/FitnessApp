@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "365446816983",
+    "project_id": "fitness-journal-application",
+    "storage_bucket": "fitness-journal-application.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:365446816983:android:f4a6bd76a589928408bc92",
+        "android_client_info": {
+          "package_name": "ie.setu.fitnessapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC03nXHFKqoDSX8bUKUx3Xms3FNpulXY9o"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
