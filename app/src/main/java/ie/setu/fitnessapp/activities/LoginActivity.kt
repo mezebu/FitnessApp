@@ -2,72 +2,80 @@ package ie.setu.fitnessapp.activities
 
 import android.content.Intent
 import android.os.Bundle
-import android.widget.Button
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import com.google.android.material.snackbar.Snackbar
-import com.google.android.material.textfield.TextInputEditText
-import com.google.android.material.textfield.TextInputLayout
-import ie.setu.fitnessapp.R
+import com.google.firebase.auth.FirebaseAuth
+import ie.setu.fitnessapp.FitnessActivity
 import ie.setu.fitnessapp.databinding.ActivityLoginBinding
 import timber.log.Timber
-import timber.log.Timber.i
 
 class LoginActivity : AppCompatActivity() {
 
-    private lateinit var txtEmail: TextInputEditText
-    private lateinit var txtPassword: TextInputEditText
-    private lateinit var btnLogin: Button
-    private lateinit var txtRegister: TextView
-    private lateinit var txtLayUser: TextInputLayout
-    private lateinit var txtLayPass: TextInputLayout
     private lateinit var binding: ActivityLoginBinding
+    private lateinit var firebaseAuth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        // Install splash screen
         Thread.sleep(3000)
         installSplashScreen()
+
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        // Initialize Timber for logging
         Timber.plant(Timber.DebugTree())
-
-        i("Login Activity started..")
+        Timber.i("Login Activity started..")
 
         // Initialize views using view binding
-        txtEmail = findViewById(R.id.txtEmail)
-        txtPassword = findViewById(R.id.txtPassword)
-        btnLogin = findViewById(R.id.btnLogin)
-        txtRegister = findViewById(R.id.txtRegister)
-        txtLayUser = findViewById(R.id.txtLay_user)
-        txtLayPass = findViewById(R.id.txtLay_pass)
+        val btnLogin = binding.btnLogin
+        val txtRegister = binding.txtRegister
+
+        // Initialize FirebaseAuth
+        firebaseAuth = FirebaseAuth.getInstance()
 
         // Set up click listener for the register button
         txtRegister.setOnClickListener {
-            val intent = Intent(this, RegistrationActivity::class.java)
-            startActivity(intent)
+            navigateToRegistration()
         }
 
         // Set up click listener for the login button
-        binding.btnLogin.setOnClickListener {
-            i("Login Button Pressed")
-            val email = txtEmail.text.toString().trim()
-            val password = txtPassword.text.toString().trim()
-
-            if (email.isEmpty()) {
-                Snackbar
-                    .make(it,"Please Enter an Email", Snackbar.LENGTH_LONG)
-                    .show()
-            }
-
-            if (password.isEmpty()) {
-                Snackbar
-                    .make(it,"Please Enter Your Password", Snackbar.LENGTH_LONG)
-                    .show()
-            }
-
-            // Perform login operation here
+        btnLogin.setOnClickListener {
+            loginUser()
         }
+    }
+
+    private fun navigateToRegistration() {
+        val intent = Intent(this, RegistrationActivity::class.java)
+        startActivity(intent)
+    }
+
+    private fun loginUser() {
+        val email = binding.txtEmail.text.toString()
+        val password = binding.txtPassword.text.toString()
+
+        if (email.isNotEmpty() && password.isNotEmpty()) {
+            firebaseAuth.signInWithEmailAndPassword(email, password)
+                .addOnCompleteListener { task ->
+                    if (task.isSuccessful) {
+                        navigateToMain()
+                    } else {
+                        showErrorSnackbar("Login failed: ${task.exception?.message}")
+                    }
+                }
+        } else {
+            showErrorSnackbar("Please enter email and password")
+        }
+    }
+
+    private fun navigateToMain() {
+        val intent = Intent(this, FitnessActivity::class.java)
+        startActivity(intent)
+    }
+
+    private fun showErrorSnackbar(message: String) {
+        Snackbar.make(binding.root, message, Snackbar.LENGTH_SHORT).show()
     }
 }

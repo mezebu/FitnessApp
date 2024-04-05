@@ -8,10 +8,10 @@
             <InsightsFilterSettings>
               <option name="connection">
                 <ConnectionSetting>
-                  <option name="appId" value="PLACEHOLDER" />
-                  <option name="mobileSdkAppId" value="" />
-                  <option name="projectId" value="" />
-                  <option name="projectNumber" value="" />
+                  <option name="appId" value="ie.setu.fitnessapp" />
+                  <option name="mobileSdkAppId" value="1:365446816983:android:f4a6bd76a589928408bc92" />
+                  <option name="projectId" value="fitness-journal-application" />
+                  <option name="projectNumber" value="365446816983" />
                 </ConnectionSetting>
               </option>
               <option name="signal" value="SIGNAL_UNSPECIFIED" />
