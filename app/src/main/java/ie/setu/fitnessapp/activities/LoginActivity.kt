@@ -8,12 +8,15 @@ import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import ie.setu.fitnessapp.FitnessActivity
 import ie.setu.fitnessapp.databinding.ActivityLoginBinding
+import ie.setu.fitnessapp.models.SignInModel
 import timber.log.Timber
+import timber.log.Timber.i
 
 class LoginActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityLoginBinding
     private lateinit var firebaseAuth: FirebaseAuth
+    private var model = SignInModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,7 +30,7 @@ class LoginActivity : AppCompatActivity() {
 
         // Initialize Timber for logging
         Timber.plant(Timber.DebugTree())
-        Timber.i("Login Activity started..")
+        i("Login Activity started..")
 
         // Initialize views using view binding
         val btnLogin = binding.btnLogin
@@ -44,6 +47,7 @@ class LoginActivity : AppCompatActivity() {
         // Set up click listener for the login button
         btnLogin.setOnClickListener {
             loginUser()
+            i("add Button Pressed: ${model.email}")
         }
     }
 
@@ -53,11 +57,11 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun loginUser() {
-        val email = binding.txtEmail.text.toString()
-        val password = binding.txtPassword.text.toString()
+        model.email = binding.txtEmail.text.toString()
+        model.password = binding.txtPassword.text.toString()
 
-        if (email.isNotEmpty() && password.isNotEmpty()) {
-            firebaseAuth.signInWithEmailAndPassword(email, password)
+        if (model.email.isNotEmpty() && model.password.isNotEmpty()) {
+            firebaseAuth.signInWithEmailAndPassword(model.email, model.password)
                 .addOnCompleteListener { task ->
                     if (task.isSuccessful) {
                         navigateToMain()
