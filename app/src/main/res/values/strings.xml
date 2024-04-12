@@ -7,9 +7,19 @@
     <string name="hint_email">Email</string>
     <string name="password">Password</string>
     <string name="email_address">Email</string>
-    <string name="welcome">Welcome</string>
-    <string name="register">Register</string>
+    <string name="welcome">Welcome Back \nLogin Here</string>
+    <string name="register">Welcome!\nRegister Here</string>
     <string name="error_empty_email">Email is empty</string>
     <string name="error_empty_password">Password is empty</string>
     <string name="image_description">register_image</string>
+    <string name="Add">Add Fitness</string>
+    <string name="add_fitness">Add fitness Activities</string>
+    <string name="exercise_name">Exercise Name</string>
+    <string name="duration">Duration</string>
+    <string name="weight">Weight</string>
+    <string name="calories">Calories Burned</string>
+    <string name="end_date">Enter Date (dd-mm-yyyy)</string>
+    <string name="note">Description</string>
+    <string name="add_details">Add Details</string>
+    <string name="user_name">Full Name</string>
 </resources>
