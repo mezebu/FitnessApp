@@ -13,6 +13,9 @@
         android:theme="@style/Theme.FitnessApp"
         tools:targetApi="31">
         <activity
+            android:name=".activities.AddFitnessActivity"
+            android:exported="false" />
+        <activity
             android:name=".activities.LoginActivity"
             android:exported="true"
             android:theme="@style/Theme.App.SplashScreen">
