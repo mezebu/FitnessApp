@@ -1,4 +1,6 @@
 <resources>
+    <string name="open_nav">Open Navigation Drawer</string>
+    <string name="close_nav">Close Navigation Drawer</string>
     <string name="app_name">FitnessApp</string>
     <string name="button_login">Login</string>
     <string name="button_register">Register</string>
@@ -22,4 +24,17 @@
     <string name="note">Description</string>
     <string name="add_details">Add Details</string>
     <string name="user_name">Full Name</string>
+    <string name="mail_subheader_title">Menu</string>
+    <string name="inbox_title">Home</string>
+    <string name="favourites_title">Favourites</string>
+    <string name="outbox_title">Profile</string>
+    <string name="dark_mode">Dark Mode</string>
+    <string name="subtitle">Subtitle</string>
+    <string name="sign_out">Sign Out</string>
+    <string name="header_title">John Doe</string>
+    <string name="header_text">johndoe@mail.com</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="hello_home_fragment">Home</string>
+    <string name="hello_profile_fragment">Profile</string>
 </resources>
