@@ -6,19 +6,19 @@ import android.os.Bundle
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.firestore
+import com.google.firebase.firestore.FirebaseFirestore
 import ie.setu.fitnessapp.FitnessActivity
 import ie.setu.fitnessapp.databinding.ActivityAddFitnessBinding
 import ie.setu.fitnessapp.models.FitnessDataModel
 import timber.log.Timber
-import timber.log.Timber.i
 
 class AddFitnessActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityAddFitnessBinding
     private var model = FitnessDataModel()
-    private val db = Firebase.firestore
+    private val db = FirebaseFirestore.getInstance()
     private lateinit var firebaseAuth: FirebaseAuth
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -28,11 +28,11 @@ class AddFitnessActivity : AppCompatActivity() {
 
         // Initialize Timber for logging
         Timber.plant(Timber.DebugTree())
-        i("Add Activity started..")
+        Timber.i("Add Activity started..")
 
         binding.addActivity.setOnClickListener {
             addActivity()
-            i("add fitness activities button pressed: ${model.exerciseName}")
+            Timber.i("add fitness activities button pressed: ${model.exerciseName}")
         }
     }
 
