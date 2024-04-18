@@ -1,7 +1,8 @@
 package ie.setu.fitnessapp
 
 
-import HomeFragment
+import android.content.Intent
+import ie.setu.fitnessapp.fragments.HomeFragment
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
@@ -12,6 +13,8 @@ import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import com.google.android.material.navigation.NavigationView
+import com.google.firebase.auth.FirebaseAuth
+import ie.setu.fitnessapp.activities.LoginActivity
 import ie.setu.fitnessapp.databinding.ActivityMainBinding
 import ie.setu.fitnessapp.fragments.ProfileFragment
 import timber.log.Timber
@@ -49,9 +52,17 @@ class FitnessActivity : AppCompatActivity(), NavigationView.OnNavigationItemSele
         when(item.itemId){
             R.id.navHome -> replaceFragment(HomeFragment())
             R.id.navProfile -> replaceFragment(ProfileFragment())
+            R.id.btnLogout -> logOutUser()
         }
         drawerLayout.closeDrawer(GravityCompat.START)
         return true
+    }
+
+    private fun logOutUser() {
+        FirebaseAuth.getInstance().signOut()
+        val loginIntent = Intent(this, LoginActivity::class.java)
+        startActivity(loginIntent)
+        finish()
     }
 
     private fun replaceFragment(fragment: Fragment) {
