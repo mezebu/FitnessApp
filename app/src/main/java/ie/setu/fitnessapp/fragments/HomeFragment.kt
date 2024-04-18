@@ -62,19 +62,33 @@ class HomeFragment : Fragment() {
         } ?: showSnackbar("User not logged in.")
     }
 
-    private fun DocumentSnapshot.toFitnessDataModel(): FitnessDataModel {
-        return FitnessDataModel(
-            exerciseName = getString("exerciseName") ?: "",
-            duration = getString("duration") ?: "",
-            weight = getString("weight") ?: "",
-            calories = getString("calories") ?: "",
-            endDate = getString("endDate") ?: "",
-            note = getString("note") ?: ""
-        )
+    private fun DocumentSnapshot.toFitnessDataModel(): FitnessDataModel? {
+        val exerciseName = getString("exerciseName") ?: ""
+        val duration = getString("duration") ?: ""
+        val weight = getString("weight") ?: ""
+        val calories = getString("calories") ?: ""
+        val endDate = getString("endDate") ?: ""
+        val note = getString("note") ?: ""
+        val timestamp = getTimestamp("timestamp")
+
+        return if (timestamp != null) {
+            FitnessDataModel(
+                exerciseName = exerciseName,
+                duration = duration,
+                weight = weight,
+                calories = calories,
+                endDate = endDate,
+                note = note,
+                timestamp = timestamp
+            )
+        } else {
+            null
+        }
     }
 
+
     private fun updateRecyclerView(fitnessList: List<FitnessDataModel>) {
-        fitnessAdapter = FitnessAdapter(fitnessList)
+        fitnessAdapter = FitnessAdapter(fitnessList, requireContext())
         recyclerView.adapter = fitnessAdapter
     }
 
