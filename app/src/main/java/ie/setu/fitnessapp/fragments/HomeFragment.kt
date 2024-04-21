@@ -15,10 +15,12 @@ import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestore
 import ie.setu.fitnessapp.R
 import ie.setu.fitnessapp.activities.AddFitnessActivity
+import ie.setu.fitnessapp.activities.UpdateFitnessActivity
 import ie.setu.fitnessapp.adapters.FitnessAdapter
 import ie.setu.fitnessapp.models.FitnessDataModel
+import ie.setu.fitnessapp.adapters.OnFitnessItemClickListener
 
-class HomeFragment : Fragment() {
+class HomeFragment : Fragment(), OnFitnessItemClickListener {
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var fitnessAdapter: FitnessAdapter
@@ -52,7 +54,9 @@ class HomeFragment : Fragment() {
                 .get()
                 .addOnSuccessListener { documents ->
                     val fitnessList = documents.mapNotNull { document ->
-                        document.toFitnessDataModel()
+                        document.toFitnessDataModel().also {
+                            it?.documentId = document.id // Ensure documentId is set correctly
+                        }
                     }
                     updateRecyclerView(fitnessList)
                 }
@@ -86,9 +90,8 @@ class HomeFragment : Fragment() {
         }
     }
 
-
     private fun updateRecyclerView(fitnessList: List<FitnessDataModel>) {
-        fitnessAdapter = FitnessAdapter(fitnessList, requireContext())
+        fitnessAdapter = FitnessAdapter(fitnessList, requireContext(), this)
         recyclerView.adapter = fitnessAdapter
     }
 
@@ -98,5 +101,13 @@ class HomeFragment : Fragment() {
 
     private fun navigateToAddFitness() {
         startActivity(Intent(activity, AddFitnessActivity::class.java))
+    }
+
+    override fun onItemClick(fitnessData: FitnessDataModel, documentId: String) {
+        // Example action: Navigate to an UpdateFitnessActivity with the selected item's details
+        val intent = Intent(activity, UpdateFitnessActivity::class.java).apply {
+            putExtra("documentId", documentId)
+        }
+        startActivity(intent)
     }
 }
