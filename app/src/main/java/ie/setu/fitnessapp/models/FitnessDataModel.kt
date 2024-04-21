@@ -9,5 +9,6 @@ data class FitnessDataModel(
     var calories: String = "",
     var endDate: String = "",
     var note: String = "",
-    var timestamp: Timestamp? = null
+    var timestamp: Timestamp? = null,
+    var documentId: String = ""
 )
