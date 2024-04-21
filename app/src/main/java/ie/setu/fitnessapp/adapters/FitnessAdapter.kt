@@ -13,8 +13,17 @@ import java.text.SimpleDateFormat
 import java.util.Locale
 import java.util.TimeZone
 
-class FitnessAdapter(private val fitnessList: List<FitnessDataModel>, private val context: Context): RecyclerView.Adapter<FitnessAdapter.FitnessViewHolder>() {
-    class FitnessViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
+interface OnFitnessItemClickListener {
+    fun onItemClick(fitnessData: FitnessDataModel, documentId: String)
+}
+
+class FitnessAdapter(
+    private val fitnessList: List<FitnessDataModel>,
+    private val context: Context,
+    private val listener: OnFitnessItemClickListener
+) : RecyclerView.Adapter<FitnessAdapter.FitnessViewHolder>() {
+
+    class FitnessViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var exerciseName: TextView = itemView.findViewById(R.id.tvExerciseName)
         var duration: TextView = itemView.findViewById(R.id.tvDuration)
         var weight: TextView = itemView.findViewById(R.id.tvWeight)
@@ -26,12 +35,17 @@ class FitnessAdapter(private val fitnessList: List<FitnessDataModel>, private va
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FitnessViewHolder {
         val itemView = LayoutInflater.from(parent.context).inflate(R.layout.item_layout, parent, false)
-        return FitnessViewHolder(itemView)
+        return FitnessViewHolder(itemView).apply {
+            itemView.setOnClickListener {
+                val position = adapterPosition
+                if (position != RecyclerView.NO_POSITION) {
+                    listener.onItemClick(fitnessList[position], fitnessList[position].documentId)
+                }
+            }
+        }
     }
 
-    override fun getItemCount(): Int {
-       return fitnessList.size
-    }
+    override fun getItemCount(): Int = fitnessList.size
 
     override fun onBindViewHolder(holder: FitnessViewHolder, position: Int) {
         val currentItem = fitnessList[position]
@@ -45,12 +59,8 @@ class FitnessAdapter(private val fitnessList: List<FitnessDataModel>, private va
     }
 
     private fun formatDate(timestamp: Timestamp?): String {
-        return if (timestamp != null) {
-            val sdf = SimpleDateFormat("dd-MM-yyyy HH:mm:ss", Locale.getDefault())
-            sdf.timeZone = TimeZone.getDefault()
-            sdf.format(timestamp.toDate())
-        } else {
-            "No date"
-        }
+        val sdf = SimpleDateFormat("dd-MM-yyyy HH:mm:ss", Locale.getDefault())
+        sdf.timeZone = TimeZone.getDefault()
+        return timestamp?.toDate()?.let { sdf.format(it) } ?: "No date"
     }
 }
