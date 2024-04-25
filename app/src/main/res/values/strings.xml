@@ -47,4 +47,5 @@
     <string name="button_del">Delete</string>
     <string name="update_details">Update Details</string>
     <string name="update_fitness">Update Fitness Activity</string>
+    <string name="delete_activity">Delete</string>
 </resources>
