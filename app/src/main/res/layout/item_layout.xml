@@ -86,16 +86,17 @@
                 app:layout_constraintEnd_toEndOf="parent"/>
 
             <!-- TextView for End Date -->
+
             <TextView
                 android:id="@+id/tvTimeStamp"
-                android:layout_width="152dp"
-                android:layout_height="22dp"
-                android:layout_marginTop="12dp"
+                android:layout_width="153dp"
+                android:layout_height="23dp"
+                android:layout_marginTop="20dp"
                 android:text="@string/time_label"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                 android:textSize="11sp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tvNote" />
 
