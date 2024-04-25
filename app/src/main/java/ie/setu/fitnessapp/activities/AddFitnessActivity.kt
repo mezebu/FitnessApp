@@ -91,6 +91,7 @@ class AddFitnessActivity : AppCompatActivity() {
             this.note = note
         }
 
+        // Create a map of fitness data to be uploaded to Firestore
         val fitnessData = hashMapOf(
             "exerciseName" to model.exerciseName,
             "duration" to model.duration,
@@ -101,31 +102,38 @@ class AddFitnessActivity : AppCompatActivity() {
             "timestamp" to FieldValue.serverTimestamp()
         )
 
+        // Check if user is logged in
         firebaseAuth.currentUser?.let { user ->
             val userId = user.uid
+            // Upload fitness data to Firestore
             db.collection("fitness_data").document(userId).collection("data").document()
                 .set(fitnessData)
                 .addOnSuccessListener {
+                    // Show success message and clear EditText fields
                     showSnackbar("Fitness data saved successfully!")
                     clearEditTextFields()
+                    // Navigate to FitnessActivity
                     navigateToFitnessActivity()
                 }
                 .addOnFailureListener { exception ->
+                    // Show error message if upload fails
                     showSnackbar("Error saving fitness data: ${exception.message}")
                 }
         } ?: showSnackbar("User not logged in.")
     }
 
-
+    // Function to navigate to FitnessActivity
     private fun navigateToFitnessActivity() {
         val intent = Intent(this, FitnessActivity::class.java)
         startActivity(intent)
     }
 
+    // Function to show Snackbar with provided message
     private fun showSnackbar(message: String) {
         Snackbar.make(binding.root, message, Snackbar.LENGTH_SHORT).show()
     }
 
+    // Function to clear EditText fields
     private fun clearEditTextFields() {
         binding.editTextExerciseName.text?.clear()
         binding.editTextDuration.text?.clear()
