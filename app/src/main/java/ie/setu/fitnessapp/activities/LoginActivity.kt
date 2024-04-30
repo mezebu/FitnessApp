@@ -44,6 +44,9 @@ class LoginActivity : AppCompatActivity() {
             navigateToRegistration()
         }
 
+        // Check if user is already logged in
+        checkIfUserIsLoggedIn()
+
         // Set up click listener for the login button
         btnLogin.setOnClickListener {
             loginUser()
@@ -54,6 +57,13 @@ class LoginActivity : AppCompatActivity() {
     private fun navigateToRegistration() {
         val intent = Intent(this, RegistrationActivity::class.java)
         startActivity(intent)
+    }
+
+    private fun checkIfUserIsLoggedIn() {
+        val currentUser = firebaseAuth.currentUser
+        if (currentUser != null) {
+            navigateToMain()
+        }
     }
 
     private fun loginUser() {
