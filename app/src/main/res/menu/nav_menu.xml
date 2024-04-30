@@ -24,11 +24,6 @@
                     android:icon="@drawable/ic_outbox_24px"
                     android:title="@string/outbox_title"
                     android:checkable="true"/>
-                <item
-                    android:id="@+id/favourites_item"
-                    android:icon="@drawable/ic_favorites_24px"
-                    android:title="@string/favourites_title"
-                    android:checkable="true"/>
             </menu>
         </item>
     </group>
