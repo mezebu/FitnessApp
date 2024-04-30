@@ -105,16 +105,6 @@
         app:layout_constraintHorizontal_bias="0.412"
         app:layout_constraintStart_toStartOf="@id/btnLogin"
         app:layout_constraintTop_toBottomOf="@id/btnLogin" />
-
-    <com.google.android.gms.common.SignInButton
-        android:id="@+id/btnGoogleSignIn"
-        android:layout_width="347dp"
-        android:layout_height="60dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.468"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.854" />
+    
 
 </androidx.constraintlayout.widget.ConstraintLayout>
