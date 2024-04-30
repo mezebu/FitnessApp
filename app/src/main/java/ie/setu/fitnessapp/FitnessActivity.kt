@@ -1,12 +1,11 @@
 package ie.setu.fitnessapp
 
-
+import android.annotation.SuppressLint
 import android.content.Intent
-import ie.setu.fitnessapp.fragments.HomeFragment
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
 import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
@@ -16,15 +15,18 @@ import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
 import ie.setu.fitnessapp.activities.LoginActivity
 import ie.setu.fitnessapp.databinding.ActivityMainBinding
+import ie.setu.fitnessapp.fragments.HomeFragment
 import ie.setu.fitnessapp.fragments.ProfileFragment
 import timber.log.Timber
-import timber.log.Timber.i
+import android.widget.TextView
+import com.google.firebase.firestore.FirebaseFirestore
 
 class FitnessActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
     private lateinit var drawerLayout: DrawerLayout
     private lateinit var binding: ActivityMainBinding
     private lateinit var firebaseAuth: FirebaseAuth
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         firebaseAuth = FirebaseAuth.getInstance()
@@ -33,20 +35,60 @@ class FitnessActivity : AppCompatActivity(), NavigationView.OnNavigationItemSele
         setContentView(binding.root)
 
         Timber.plant(Timber.DebugTree())
-        i("Fitness Journal Activity started..")
+        Timber.i("Fitness Activity started..")
 
-        drawerLayout = findViewById<DrawerLayout>(R.id.drawerLayout)
-        val toolbar = findViewById<Toolbar>(R.id.toolbar)
-
-        setSupportActionBar(toolbar)
-        binding.navView.setNavigationItemSelectedListener(this)
-        val toggle = ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.open_nav, R.string.close_nav)
-        drawerLayout.addDrawerListener(toggle)
-        toggle.syncState()
+        setupDrawerAndToolbar()
 
         if (savedInstanceState == null) {
             replaceFragment(HomeFragment())
             binding.navView.setCheckedItem(R.id.navHome)
+        }
+
+        updateNavHeader()
+    }
+
+    private fun setupDrawerAndToolbar() {
+        val toolbar: Toolbar = findViewById(R.id.toolbar)
+        setSupportActionBar(toolbar)
+        drawerLayout = binding.drawerLayout
+        binding.navView.setNavigationItemSelectedListener(this)
+        val toggle = ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.open_nav, R.string.close_nav)
+        drawerLayout.addDrawerListener(toggle)
+        toggle.syncState()
+    }
+
+    @SuppressLint("SetTextI18n")
+    private fun updateNavHeader() {
+        val headerView = binding.navView.getHeaderView(0)
+        val navHeaderUsername = headerView.findViewById<TextView>(R.id.navHeaderUsername)
+        val navHeaderEmail = headerView.findViewById<TextView>(R.id.navHeaderEmail)
+        val user = firebaseAuth.currentUser
+
+        if (user != null) {
+            // Set the email directly from the FirebaseAuth instance
+            navHeaderEmail.text = user.email ?: "No Email"
+
+            // Fetch the username from Firestore
+            val db = FirebaseFirestore.getInstance()
+            db.collection("users").document(user.uid)
+                .get()
+                .addOnSuccessListener { document ->
+                    if (document.exists()) {
+                        // Set the username from the document
+                        navHeaderUsername.text = document.getString("username") ?: "No Username"
+                    } else {
+                        // Handle case where there is no such document
+                        navHeaderUsername.text = "No Username"
+                    }
+                }
+                .addOnFailureListener { e ->
+                    // Handle the error
+                    navHeaderUsername.text = "Error Loading Username"
+                }
+        } else {
+            // If no user is logged in, set default text
+            navHeaderUsername.text = "No Username"
+            navHeaderEmail.text = "No Email"
         }
     }
 
@@ -61,12 +103,9 @@ class FitnessActivity : AppCompatActivity(), NavigationView.OnNavigationItemSele
     }
 
     private fun logOutUser() {
-        if(firebaseAuth.currentUser != null) {
-            firebaseAuth.signOut()
-            val loginIntent = Intent(this, LoginActivity::class.java)
-            startActivity(loginIntent)
-            finish()
-        }
+        firebaseAuth.signOut()
+        startActivity(Intent(this, LoginActivity::class.java))
+        finish()
     }
 
     private fun replaceFragment(fragment: Fragment) {
@@ -76,11 +115,10 @@ class FitnessActivity : AppCompatActivity(), NavigationView.OnNavigationItemSele
     }
 
     override fun onBackPressed() {
-        if (drawerLayout.isDrawerOpen(GravityCompat.START)){
+        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
             drawerLayout.closeDrawer(GravityCompat.START)
         } else {
-            onBackPressedDispatcher.onBackPressed()
+            super.onBackPressed()
         }
     }
-
 }
