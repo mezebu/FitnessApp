@@ -48,4 +48,6 @@
     <string name="update_details">Update Details</string>
     <string name="update_fitness">Update Fitness Activity</string>
     <string name="delete_activity">Delete</string>
+    <string name="email">example@mail.com</string>
+    <string name="username">Username</string>
 </resources>
