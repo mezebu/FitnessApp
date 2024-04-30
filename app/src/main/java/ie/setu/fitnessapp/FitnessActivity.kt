@@ -24,8 +24,10 @@ class FitnessActivity : AppCompatActivity(), NavigationView.OnNavigationItemSele
 
     private lateinit var drawerLayout: DrawerLayout
     private lateinit var binding: ActivityMainBinding
+    private lateinit var firebaseAuth: FirebaseAuth
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        firebaseAuth = FirebaseAuth.getInstance()
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -59,10 +61,12 @@ class FitnessActivity : AppCompatActivity(), NavigationView.OnNavigationItemSele
     }
 
     private fun logOutUser() {
-        FirebaseAuth.getInstance().signOut()
-        val loginIntent = Intent(this, LoginActivity::class.java)
-        startActivity(loginIntent)
-        finish()
+        if(firebaseAuth.currentUser != null) {
+            firebaseAuth.signOut()
+            val loginIntent = Intent(this, LoginActivity::class.java)
+            startActivity(loginIntent)
+            finish()
+        }
     }
 
     private fun replaceFragment(fragment: Fragment) {
