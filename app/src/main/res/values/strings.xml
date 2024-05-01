@@ -50,4 +50,6 @@
     <string name="delete_activity">Delete</string>
     <string name="email">example@mail.com</string>
     <string name="username">Username</string>
+    <string name="sign_up_with_google">Sign up with Google</string>
+    <string name="default_web_client_id">default web client id</string>
 </resources>

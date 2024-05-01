@@ -12,7 +12,20 @@
           "package_name": "ie.setu.fitnessapp"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "365446816983-kodgr24brc2g7son3kssrjg5mc551fsk.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "ie.setu.fitnessapp",
+            "certificate_hash": "5ef387fda38299521218c5e96f07fd8354f475f0"
+          }
+        },
+        {
+          "client_id": "365446816983-22l5blnimadsed4elpfiihnoorfekiln.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyC03nXHFKqoDSX8bUKUx3Xms3FNpulXY9o"
@@ -20,7 +33,12 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "365446816983-22l5blnimadsed4elpfiihnoorfekiln.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }
