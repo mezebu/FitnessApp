@@ -57,5 +57,4 @@ dependencies {
     implementation ("com.google.android.material:material:<version>")
     implementation ("androidx.recyclerview:recyclerview:1.3.2")
     implementation("com.google.android.gms:play-services-auth:21.1.0")
-
 }
