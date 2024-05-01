@@ -81,7 +81,7 @@ class FitnessActivity : AppCompatActivity(), NavigationView.OnNavigationItemSele
                         navHeaderUsername.text = "No Username"
                     }
                 }
-                .addOnFailureListener { e ->
+                .addOnFailureListener {
                     // Handle the error
                     navHeaderUsername.text = "Error Loading Username"
                 }
