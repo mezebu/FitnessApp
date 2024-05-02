@@ -60,4 +60,6 @@
     <string name="save_details">Save Details</string>
     <string name="profileName">Name: </string>
     <string name="profileEmail">Profile Email: </string>
+    <string name="image_upload">image upload</string>
+    <string name="upload_image_i">Upload Image</string>
 </resources>
