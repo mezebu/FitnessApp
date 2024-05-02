@@ -19,15 +19,6 @@
         android:contentDescription="@string/user_image"
         android:layout_marginTop="16dp" />
 
-    <Button
-        android:id="@+id/btnUploadImage"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/upload_image"
-        app:layout_constraintTop_toBottomOf="@id/imageViewUserImage"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="16dp" />
 
     <TextView
         android:id="@+id/textViewUsername"
@@ -37,7 +28,7 @@
         android:text="@string/profileName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/btnUploadImage" />
+        app:layout_constraintTop_toBottomOf="@id/imageViewUserImage" />
 
     <TextView
         android:id="@+id/textViewEmail"
