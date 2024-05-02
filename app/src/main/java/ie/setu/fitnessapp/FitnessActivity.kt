@@ -67,6 +67,7 @@ class FitnessActivity : AppCompatActivity(), NavigationView.OnNavigationItemSele
         if (user != null) {
             // Set the email directly from the FirebaseAuth instance
             navHeaderEmail.text = user.email ?: "No Email"
+            navHeaderUsername.text = user.displayName
 
             // Fetch the username from Firestore
             val db = FirebaseFirestore.getInstance()
