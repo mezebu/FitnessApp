@@ -8,6 +8,26 @@
     tools:context=".activities.AddUserDetailsActivity">
 
 
+    <ImageView
+        android:id="@+id/imageViewUserPhoto"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:src="@drawable/ic_baseline_person_24"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:contentDescription="@string/user_image"
+        android:layout_marginTop="16dp" />
+
+    <Button
+        android:id="@+id/btnUploadImage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/upload_image"
+        app:layout_constraintTop_toBottomOf="@id/imageViewUserPhoto"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="16dp" />
 
     <EditText
         android:id="@+id/editTextUserAge"
@@ -15,6 +35,7 @@
         android:layout_height="wrap_content"
         android:hint="@string/age"
         android:inputType="number"
+        app:layout_constraintTop_toBottomOf="@id/btnUploadImage"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:autofillHints="20"
@@ -51,5 +72,4 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>
