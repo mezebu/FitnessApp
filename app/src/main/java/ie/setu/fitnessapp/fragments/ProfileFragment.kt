@@ -2,10 +2,11 @@ package ie.setu.fitnessapp.fragments
 
 import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import com.bumptech.glide.Glide
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -35,6 +36,39 @@ class ProfileFragment : Fragment() {
 
         val currentUser = firebaseAuth.currentUser
         if (currentUser != null) {
+            binding.textViewUsername.text = currentUser.displayName ?: "No Display Name"
+            binding.textViewEmail.text = currentUser.email ?: "No Email"
+
+            // Fetch user details from Firestore
+            firestore.collection("user_details").document(currentUser.uid)
+                .get()
+                .addOnSuccessListener { document ->
+                    if (document.exists()) {
+                        binding.textViewUserAge.text = document.getString("age") ?: "No Age"
+                        binding.textViewUserAddress.text = document.getString("address") ?: "No Address"
+                        binding.textViewUserProfession.text = document.getString("profession") ?: "No Profession"
+
+                        // Load the image with Glide
+                        val imageUrl = document.getString("imageUrl")
+                        if (!imageUrl.isNullOrEmpty()) {
+                            Glide.with(this@ProfileFragment)
+                                .load(imageUrl)
+                                .into(binding.imageViewUserImage)
+                        } else {
+                            showErrorSnackbar("No image URL found.")
+                        }
+                    } else {
+                        showErrorSnackbar("User details not found.")
+                    }
+                }
+                .addOnFailureListener {
+                    showErrorSnackbar("Error fetching user details: ${it.message}")
+                }
+        } else {
+            showErrorSnackbar("No user logged in.")
+        }
+
+        if (currentUser != null) {
             binding.textViewUsername.text = currentUser.displayName
             binding.textViewEmail.text = currentUser.email
             firestore.collection("users").document(currentUser.uid)
@@ -43,25 +77,6 @@ class ProfileFragment : Fragment() {
                     if (document.exists()) {
                         binding.textViewUsername.text = document.getString("username")
                         binding.textViewEmail.text = currentUser.email // Email directly from Auth
-                    } else {
-                        // Handle no document found
-                        showErrorSnackbar("User details not found")
-                    }
-                }
-                .addOnFailureListener {
-                    // Handle errors
-                    showErrorSnackbar("Error fetching user details")
-                }
-        }
-
-        if (currentUser != null) {
-            firestore.collection("user_details").document(currentUser.uid)
-                .get()
-                .addOnSuccessListener { document ->
-                    if (document.exists()) {
-                        binding.textViewUserAge.text = document.getString("age")
-                        binding.textViewUserAddress.text = document.getString("address")
-                        binding.textViewUserProfession.text = document.getString("profession")
                     } else {
                         // Handle no document found
                         showErrorSnackbar("User details not found")
@@ -84,10 +99,10 @@ class ProfileFragment : Fragment() {
     }
 
     private fun setupFabButton() {
-        binding.btnSaveDetails.setOnClickListener { navigateToAddUserDetailsFitness() }
+        binding.btnSaveDetails.setOnClickListener { navigateToAddUserDetailsActivity() }
     }
 
-    private fun navigateToAddUserDetailsFitness() {
+    private fun navigateToAddUserDetailsActivity() {
         startActivity(Intent(requireActivity(), AddUserDetailsActivity::class.java))
     }
 }
